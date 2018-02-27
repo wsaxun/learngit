@@ -1,0 +1,105 @@
+{% extends "navbase.html" %}
+
+{% load staticfiles %}
+{% block specialCSS %}
+    <link rel="stylesheet"
+          href="{% static 'plugins/jquery/css/jquery.steps.css' %}"
+          xmlns="http://www.w3.org/1999/html"/>
+    <link rel="stylesheet"
+          href="{% static 'public/css/upgrade.manage.css' %}"/>
+{% endblock %}
+{% block toggle %}
+    <li><a href="{% url 'homed_upgrade' %}">HOMED升级</a></li>
+{% endblock %}
+{% block content %}
+    <div class="row f_upgrade_manage">
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">openresty</label>
+                </div>
+                <div class="panel-body">
+                    <div class="maintain">
+                        <form class="form-horizontal" role="form">
+                            <div class="row">
+                                <label class="col-md-1 control-label">slave域名</label>
+                                <div class="col-md-2">
+                                    <input type="text"
+                                           class="form-control j_msg_homed"
+                                           value="slave.homed.me">
+                                </div>
+                                <label class="col-md-1 control-label">iacs域名</label>
+                                <div class="col-md-2">
+                                    <input type="text"
+                                           class="form-control j_msg_homed"
+                                           value="access.homed.me">
+                                </div>
+                            </div>
+                        </form>
+                        <br/>
+                        <form class="form-horizontal" role="form">
+                            <div class="row">
+                                <label class="col-md-1 control-label">开始时间</label>
+                                <div class="col-md-2">
+                                    <input type="text" readonly
+                                           class="form-control j_start_datetime">
+                                </div>
+                                <label class="col-md-1 control-label">结束时间</label>
+                                <div class="col-md-2">
+                                    <input type="text" readonly
+                                           class="form-control j_end_datetime">
+                                </div>
+                            </div>
+                        </form>
+                        <br/>
+                        <form class="form-horizontal" role="form">
+                            <div class="row">
+                                <label class="col-md-1 control-label">提示标题</label>
+                                <div class="col-md-2">
+                                    <input type="text"
+                                           class="form-control j_msg_homed"
+                                           value="系统维护">
+                                </div>
+                            </div>
+                        </form>
+                        <br/>
+                        <form class="form-horizontal" role="form">
+                            <label class="col-md-1 control-label f_msg_label">提示内容</label>
+                            <div class="col-md-5 f_msg_textarea">
+                                <textarea class="form-control j_msg_homed"
+                                          rows="4"
+                                          id="j_textarea_value"></textarea>
+                            </div>
+                        </form>
+                        <br/>
+                        <button type="button"
+                                class="btn btn-danger btn-lg f_bt_bottom j_system_maintenance"
+                                value="offline">
+                            <span class="glyphicon glyphicon-circle-arrow-up"
+                                  aria-hidden="true">&nbsp系统维护</span>
+                        </button>
+                        <button type="button"
+                                class="btn btn-success btn-lg f_bt_bottom j_system_maintenance"
+                                value="online">
+                            <span class="glyphicon glyphicon-repeat"
+                                  aria-hidden="true">&nbsp系统恢复</span>
+                        </button>
+                    </div>
+                    <div class="result">
+                        <div class="alert alert-success" role="alert"
+                             style="display: none"></div>
+                        <div class="alert alert-danger" role="alert"
+                             style="display: none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specialJS %}
+    <script src="{% static 'public/js/upgrade.manage.js' %}"></script>
+    <script type="text/javascript">
+        document.getElementById("j_textarea_value").value = '1、系统升级\n2、重启服务';
+    </script>
+{% endblock %}

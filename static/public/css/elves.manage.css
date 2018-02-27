@@ -1,0 +1,113 @@
+.f_elves_manage .f_searchtype input {
+    font-size: 12px;
+    width: 300px;
+    height: 30px;
+    margin-right: 5px;
+    text-align: center;
+    background-image: url('../images/searchicon.png');
+    background-repeat: no-repeat;
+    background-position: 8px 3px;
+}
+
+.f_elves_manage .f_well_theme {
+    color: aliceblue;
+    background-color: rgba(49, 46, 46, .91);
+}
+
+.f_elves_manage .f_exec_cmd button {
+    width: 80px;
+}
+
+.f_elves_manage .f_heading_height {
+    height: 45px;
+}
+
+.f_elves_manage .f_left {
+    position: relative;
+    float: left;
+}
+
+.f_elves_manage .f_bt_index {
+    background-color: cadetblue;
+}
+
+.f_elves_manage .f_bt_modify {
+    background-color: coral;
+}
+
+.f_elves_manage .f_bt_bottom {
+    margin-bottom: 2px !important;
+}
+
+.f_elves_manage .f_bt_width {
+    width: 120px;
+}
+
+.f_elves_manage .f_modal_padding {
+    padding-left: 15%;
+}
+
+.f_elves_manage .f_col_width {
+    width: inherit;
+    padding-left: 104px;
+    color: #f33131;
+}
+
+.f_elves_manage .f_bt_bottom2 {
+    margin-bottom: 0 !important;
+}
+
+.f_elves_manage .f_quartz input {
+    width: 55px;
+    text-align: center;
+}
+
+.f_elves_manage .f_offset_1 {
+    margin-left: 9.1%;
+}
+
+.f_elves_manage .f_cron_table th {
+    font-weight: bold;
+}
+
+.f_elves_manage .f_cron_table td {
+    vertical-align: middle;
+}
+
+.f_elves_manage .f_modal_table_fix {
+    table-layout: fixed;
+}
+
+.f_elves_manage .f_modal_table_fix td {
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+.f_elves_manage .f_button_right {
+    position: relative;
+    float: right;
+}
+
+.f_elves_manage .f_button_color {
+    background-color: #6495ed;
+}
+
+.f_elves_manage .f_right {
+    position: relative;
+    float: right;
+}
+
+.f_elves_manage .f_right_select {
+    position: relative;
+    float: right !important;
+    bottom: 3px;
+}
+
+.f_elves_manage .f_right input {
+    width: 200px;
+    height: 31px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    bottom: 1px;
+}

@@ -1,0 +1,23 @@
+        access_by_lua_block {
+            local ret = {}
+            local start_time = "#start_time#"
+            local end_time = "#end_time#"
+            local title = "#title#" 
+            local msgs = "#msgs#" 
+            local slave = "#slave#" 
+            local iacs = "#iacs#" 
+            ret['ret'] = -1000000
+            ret['update_title'] = title
+            ret['ret_msg'] = msgs
+            ret['update_start_time'] = start_time
+            ret['update_end_time'] = end_time
+            local host = ngx.var.host
+            local retype = type(ret)
+            if host == slave or host == iacs then
+                if retype == "table"  then
+                    json = require "cjson"
+                    ngx.header['Content-Type'] = 'application/json; charset=utf-8'
+                    ngx.say(json.encode(ret))
+                end
+            end
+        }

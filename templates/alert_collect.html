@@ -1,0 +1,223 @@
+{% extends "navbase.html" %}
+
+{% load staticfiles %}
+{% block specialCSS %}
+    <link rel="stylesheet"
+          href="{% static 'plugins/jquery/css/jquery.steps.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'public/css/alert.manage.css' %}"/>
+{% endblock %}
+
+{% block toggle %}
+    <li><a href="{% url 'alert_manage' %}">报警管理</a></li>
+    <li><a href="{% url 'alert_collect' %}">报警设置</a></li>
+    <li><a href="{% url 'alert_user_manage' %}">用户管理</a></li>
+    <li><a href="{% url 'alert_classify' %}">应用集</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row alarm_setting">
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">触发器</label>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <button type="button" class="btn btn-primary "
+                                id="add_rule" data-toggle="modal"
+                                data-target=".rule_rule_toggle">新建邮件规则
+                        </button>
+                        <!-- 详情模态框 -->
+                        <div class="modal fade rule_user_toggle" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">联系方式</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <button type='button'
+                                                class="btn btn-primary">增加
+                                        </button>
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th hidden>rule id记录</th>
+                                                <th hidden>user id 记录</th>
+                                                <th>用户组</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="rule_user_toggle_body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- UPD模态框 -->
+                        <div class="modal fade rule_rule_toggle" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">修改规则</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <button type="button"
+                                                class="btn btn-primary"
+                                                data-operation='add'>增加
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-primary"
+                                                data-operation='del'>删除
+                                        </button>
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>表达式关联</th>
+                                                <th>表达式</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="rule_user_toggle_body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-primary rule_update">
+                                            确定
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover ">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th hidden>ID记录</th>
+                            <th>表达式</th>
+                            <th>联系方式</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                            <th>描述</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-rule">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">定时任务
+                    </label>
+                </div>
+                <div class="panel-body cront_interval">
+                    <table class="table">
+                        <tr>
+                            <td id="cront">
+                                <div style="display: inline-block; width: 150px">
+                                    <label style="display: inline-block">邮件汇总</label>
+                                    <input type="time" class="form-control "
+                                           value=""
+                                           style="display: inline-block">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            name="cront">确定
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="interval">
+                                <div style="display: inline-block; width: 150px">
+                                    <label style="display: inline-block">重复告警间隔
+                                        <small style="display: inline-block">
+                                            (小时)
+                                        </small>
+                                    </label>
+                                    <select style="display: inline-block; width: 150px; height: 34px">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            name="interval">确定
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">策略模式</label>
+                </div>
+                <div class="panel-body stragety-panel">
+                    <table id="stragety_table">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specialJS %}
+    <script src="{% static 'public/js/alert.manage.js' %}"></script>
+    <!-- 渲染 -->
+    <script type="text/javascript">
+        $(function () {
+            display_rule();
+            display_cront_interval();
+            display_stragety();
+        })
+    </script>
+{% endblock %}

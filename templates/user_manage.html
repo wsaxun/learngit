@@ -1,0 +1,357 @@
+{% extends "navbase.html" %} {% load staticfiles %} {% block specialCSS %}
+<link rel="stylesheet" href="{% static 'plugins/jquery/css/jquery.steps.css' %}" />
+<link rel="stylesheet" href="{% static 'public/css/alert.manage.css' %}" /> {% endblock %} {% block toggle %}
+<li><a href="{% url 'alert_manage' %}">报警管理</a></li>
+<li><a href="{% url 'alert_collect' %}">报警设置</a></li>
+<li><a href="{% url 'alert_user_manage' %}">用户管理</a></li>
+<li><a href="{% url 'alert_classify' %}">应用集</a></li>
+{% endblock %} {% block content %}
+<div class="row f_user_manage">
+    <div class="col-sm-12">
+        <!-- 用户组面板 -->
+        <div class="panel panel-info j_user_group">
+            <div class="panel-heading">
+                <label class="panel-title">用户组</label>
+                <div class="f_button_right">
+                    <button type="button" class="btn btn-primary btn-sm f_bt_bottom f_bt_width j_user_group_add" data-toggle="modal" data-target="#j_myModal_user_group_add">
+                        新建
+                    </button>
+                </div>
+                <!-- 新建弹窗 -->
+                <div class="modal fade" id="j_myModal_user_group_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title" id="myModalLabel">
+                                        新建用户组</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="firstname" class="col-sm-2 control-label">组名</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_group_name" id="firstname" placeholder="请输入组名">
+                                        </div>
+                                        <label for="firstname" class="col-md-1 control-label f_col_width">*必填</label>
+                                        <label for="firstname" class="col-xs-2 control-label f_col_width">(英文)</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname" class="col-sm-2 control-label">名称</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_group_description" id="lastname" placeholder="请输入名称">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal" method="POST" action="post.php">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">邮箱</label>
+                                        <div class="col-sm-10">
+                                            <select id="j_user_group_mail_select" name="multiselect[]" multiple="multiple" class="j_user_group_mail_option">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal" method="POST" action="post.php">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">短信</label>
+                                        <div class="col-sm-10">
+                                            <select id="j_user_group_mobile_select" name="multiselect[]" multiple="multiple" class="j_user_group_mobile_option">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary j_user_group_add_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-condensed j_user_group_context">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>组名</th>
+                            <th>名称</th>
+                            <th>邮箱</th>
+                            <th>个数</th>
+                            <th>短信</th>
+                            <th>个数</th>
+                            <th>功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- 修改弹窗 -->
+                <div class="modal fade" id="j_myModal_user_group_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title f_modal_font_color" id="myModalLabel2">
+                                        修改用户组</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="firstname" class="col-sm-2 control-label f_modal_font_color">组名</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_group_update_name" id="j_user_group_name_input" value="">
+                                        </div>
+                                        <label for="firstname" class="col-md-1 control-label f_col_width">*必填</label>
+                                        <label for="firstname" class="col-xs-2 control-label f_col_width">(英文)</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname" class="col-sm-2 control-label f_modal_font_color">名称</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_group_update_description" id="j_user_group_description_input" value="">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal" method="POST" action="post.php">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">邮箱</label>
+                                        <div class="col-sm-10">
+                                            <select id="j_user_group_update_mail" multiple="multiple"></select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal" method="POST" action="post.php">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">短信</label>
+                                        <div class="col-sm-10">
+                                            <select id="j_user_group_update_mobile" multiple="multiple"></select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="submit" class="btn btn-primary j_user_group_update_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 用户面板 -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <label class="panel-title">用户</label>
+                <div class="f_searchtype f_button_right">
+                    <input id="j_user_search_input" type="text" onkeyup="user_search()" placeholder="请输入RTX">
+                    <button type="button" class="btn btn-primary btn-sm f_bt_bottom" data-toggle="modal" data-target="#j_myModal_user_add">
+                        单个添加
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm f_bt_bottom" data-toggle="modal" data-target="#j_myModal_user_rtx_add">
+                        批量添加
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm f_bt_bottom j_user_more_delete" data-toggle="modal" data-target="#j_myModal_user_more_delete">
+                        批量删除
+                    </button>
+                </div>
+                <!--  添加用户弹窗 -->
+                <div class="modal fade" id="j_myModal_user_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title" id="myModalLabel4">
+                                        添加用户</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">用户名</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user" placeholder="请输入用户名">
+                                        </div>
+                                        <label class="col-md-1 control-label f_col_width">*必填</label>
+                                        <label class="col-xs-2 control-label f_col_width">(英文)</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">名字</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_name" placeholder="请输入名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">邮箱</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_mail" placeholder="请输入邮箱">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">手机</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_mobile" placeholder="请输入手机">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary j_user_add_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- RTX 添加 弹窗 -->
+                <div class="modal fade" id="j_myModal_user_rtx_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title" id="myModalLabel3">
+                                        快速添加</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding2">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>RTX用户名</label>
+                                        <input type="text" class="form-control j_user_rtx" placeholder="请输入RTX">
+                                        <span class="help-block">多用户添加使用;隔开, 例如: duandh;xums</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary j_user_rtx_add_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 批量删除弹窗 -->
+                <div class="modal fade" id="j_myModal_user_more_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title" id="myModalLabel9">
+                                        批量删除用户</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding">
+                                <form class="form-horizontal" method="POST" action="post.php">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">用户</label>
+                                        <div class="col-sm-10">
+                                            <select id="j_user_more_delete_select" name="multiselect[]" multiple="multiple" class="j_user_more_delete_option">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary j_user_more_delete_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="f_user_table_scroll">
+                    <table class="table table-bordered table-hover table-condensed j_user_context" id="j_user_search_table">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>RTX</th>
+                                <th>名字</th>
+                                <th>邮箱</th>
+                                <th>手机</th>
+                                <th>功能</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 修改用户弹窗 -->
+                <div class="modal fade" id="j_myModal_user_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h3 class="modal-title f_modal_font_color" id="myModalLabel1">
+                                        修改用户</h3>
+                            </div>
+                            <div class="modal-body f_modal_padding">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">RTX</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_rtx_value" id="j_user_rtx_text" value="">
+                                        </div>
+                                        <label class="col-md-1 control-label f_col_width">*必填</label>
+                                        <label class="col-xs-2 control-label f_col_width">(英文)</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">名字</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_name_value" id="j_user_name_text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">邮箱</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_mail_value" id="j_user_mail_text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label f_modal_font_color">手机</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control f_from_text j_user_mobile_value" id="j_user_mobile_text" value="">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default f_bt_bottom2" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary j_user_update_ok" data-dismiss="modal">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block specialJS %}
+<script src="{% static 'public/js/alert.manage.js' %}"></script>
+<!-- 渲染 -->
+<script type="text/javascript">
+$(function() {
+    display_user_group();
+    display_user();
+})
+</script>
+{% endblock %}

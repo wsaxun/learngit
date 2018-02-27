@@ -1,0 +1,11 @@
+/*定义自动化运维的通用CSS*/
+
+/*导航条字体*/
+.f_header{
+	height: 39px;
+}
+.f_header li{
+	font-size: 15px;
+}
+
+

@@ -1,0 +1,12 @@
+/*HOMED升级*/
+.f_upgrade_manage .f_bt_bottom {
+    margin-bottom: 2px !important;
+}
+
+.f_upgrade_manage .f_msg_textarea {
+    padding-left: inherit;
+}
+
+.f_upgrade_manage .f_msg_label {
+    text-align: -webkit-center;
+}

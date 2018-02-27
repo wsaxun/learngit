@@ -1,0 +1,252 @@
+{% extends "navbase.html" %}
+
+{% load staticfiles %}
+{% block specialCSS %}
+    <link rel="stylesheet"
+          href="{% static 'plugins/jquery/css/jquery.steps.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'public/css/alert.manage.css' %}"/>
+{% endblock %}
+
+{% block toggle %}
+    <li><a href="{% url 'alert_manage' %}">报警管理</a></li>
+    <li><a href="{% url 'alert_collect' %}">报警设置</a></li>
+    <li><a href="{% url 'alert_user_manage' %}">用户管理</a></li>
+    <li><a href="{% url 'alert_classify' %}">应用集</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row alarm_setting">
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">父应用集</label>
+                </div>
+                <div class="panel-body">
+                    <!--父应用集模态框 -->
+                    <div class="modal fade sup_toggle" tabindex="-1"
+                         role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"><span
+                                            aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">增加父应用集</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="control-label">名称:</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="sup_name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">描述:</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="sup_decription">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">取消
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            id="sup_add">确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="toolbar">
+                        <div class="btn-group">
+                            <button class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <table id="sup_table">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">子应用集</label>
+                </div>
+                <div class="panel-body">
+                    <div class="modal fade" id="sub_toggle" tabindex="-1"
+                         role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"><span
+                                            aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">增加应用集</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="control-label">名称:</label>
+                                            <input type="text"
+                                                   class="form-control sub_name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">即时发送:</label>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio"
+                                                           name="optionsRadios"
+                                                           value="1"
+                                                           checked>
+                                                    即时
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio"
+                                                           name="optionsRadios"
+                                                           value="0"> 延迟
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">描述:</label>
+                                            <input type="text"
+                                                   class="form-control sub_decription">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">取消
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary sub_add">
+                                        确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- UPD模态框 -->
+                    <div class="modal fade" id="sub_upd_toggle"
+                         tabindex="-1"
+                         role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"><span
+                                            aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">子应用集修改</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th hidden>ID记录</th>
+                                            <th>名称</th>
+                                            <th>描述</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="sub_toggle_body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary sub_update">
+                                        确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--父应用集 -->
+                    <div class="modal fade sub_sup_toggle" tabindex="-1"
+                         role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"><span
+                                            aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">父应用集</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <button type='button'
+                                            class="btn btn-primary">增加
+                                    </button>
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th hidden>子应用集id记录</th>
+                                            <th hidden>父应用集id记录</th>
+                                            <th>父应用集</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="sub_sup_toggle_body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary sub_sup_add">
+                                        确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sub_toolbar">
+                        <div class="btn-group">
+                            <button class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <table id="sub_table">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block specialJS %}
+    <script src="{% static 'public/js/alert.manage.js' %}"></script>
+    <!-- 渲染 -->
+    <script type="text/javascript">
+        $(function () {
+            display_sup();
+            display_sub();
+        })
+    </script>
+{% endblock %}

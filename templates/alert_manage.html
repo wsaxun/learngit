@@ -1,0 +1,116 @@
+{% extends "navbase.html" %} {% load staticfiles %} {% block specialCSS %}
+    <link rel="stylesheet"
+          href="{% static 'plugins/jquery/css/jquery.steps.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'public/css/alert.manage.css' %}"/> {% endblock %}
+{% block toggle %}
+    <li><a href="{% url 'alert_manage' %}">报警管理</a></li>
+    <li><a href="{% url 'alert_collect' %}">报警设置</a></li>
+    <li><a href="{% url 'alert_user_manage' %}">用户管理</a></li>
+    <li><a href="{% url 'alert_classify' %}">应用集</a></li>
+{% endblock %} {% block content %}
+    <div class="row f_alert_manage">
+        <div class="col-sm-12">
+            <!-- 分类 -->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">分类</label>
+                    <form class="f_button_right" method="POST">
+                        <button type="button"
+                                class="btn btn-primary btn-sm f_bt_bottom f_bt_width j_classification_by_host">
+                            按主机
+                        </button>
+                        <button type="button"
+                                class="btn btn-primary btn-sm f_bt_bottom f_bt_width j_classification_by_app">
+                            按应用集
+                        </button>
+                    </form>
+                </div>
+                <div class="panel-body">
+                    <div class="f_classification_table_scroll">
+                        <table class="table table-bordered table-hover table-condensed j_classification_context">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 故障 -->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <label class="panel-title">故障</label>
+                    <div class="f_searchtype f_button_right">
+                        <input id="j_msg_search_input" type="text"
+                               onkeyup="msg_search()" placeholder="请输入主机名或触发器">
+                        <button type="button"
+                                class="btn btn-primary btn-sm f_bt_bottom f_bt_width j_msg_all">
+                            显示全部
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="f_alert_table_scroll">
+                        <table class="table table-bordered table-hover table-condensed j_msg_context"
+                               id="j_msg_search_table">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>主机</th>
+                                <th>触发器</th>
+                                <th>时间</th>
+                                <th>功能</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 详情弹窗 -->
+                    <div class="modal fade" id="j_myModalmsg" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal"
+                                            aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h3 class="modal-title" id="myModalLabel">
+                                        故障告警详情:</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table f_modal_table_fix">
+                                        <colgroup>
+                                            <col style="width: 100px;"/>
+                                            <col/>
+                                        </colgroup>
+                                        <tbody class="j_msg_modal">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} {% block specialJS %}
+    <script src="{% static 'public/js/alert.manage.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            display_application();
+            display_msg();
+        })
+    </script>
+{% endblock %}

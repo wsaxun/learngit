@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>自动化运维平台</title>
+
+    {% load staticfiles %}
+
+    <link rel="shortcut icon" href="{% static 'public/images/favicon.ico' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-multiselect/css/bootstrap-multiselect.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/custom/css/custom.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}"/>
+    <!-- 自定义通用的CSS -->
+    <link rel="stylesheet"
+          href="{% static 'public/css/platform.common.css' %}"/>
+    <!-- 全局框架 -->
+    <link rel="stylesheet" href="{% static 'public/css/navbase.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-table-1.11.1/bootstrap-table.min.css' %}"/>
+    <link rel="stylesheet" href="{%  static 'plugins/bootstrap-table-1.11.1/bootstrap-editable.css' %}" >
+
+    <script src="{% static 'plugins/jquery/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-multiselect/js/bootstrap-multiselect.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'plugins/custom/js/custom.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table-1.11.1/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table-1.11.1/bootstrap-table-zh-CN.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table-1.11.1/bootstrap-editable.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table-1.11.1/bootstrap-table-editable.js' %}"></script>
+    <!-- 自定义的通用js -->
+    <script src="{% static 'public/js/platform.common.js' %}"></script>
+    <!-- 表单向导js -->
+    <script src="{% static 'plugins/jquery/js/jquery.steps.js' %}"></script>
+
+    {% block specialCSS %}
+    {% endblock %}
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <span class="site_title">自动化运维平台</span>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div id="sidebar-menu"
+                     class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3></h3>
+                        <ul class="nav side-menu">
+                            <li><a>云平台管理<span
+                                    class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu"
+                                    style="display: none">
+                                    <li>
+                                        <a href="{% url 'alert_manage' %}">报警管理</a>
+                                    </li>
+                                   <!--  <li>
+                                        <a href="{% url 'host_manage' %}">资产管理</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'elves_task_manage' %}">任务管理</a>
+                                    </li>
+									<li>
+                                        <a href="{% url 'lvs_manage' %}">lvs管理</a>
+                                    </li> -->
+                                    <li>
+                                        <a href="{% url 'homed_upgrade' %}">升级管理</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav class="" role="navigation">
+                    <div class="f_header">
+                        <ol class="breadcrumb">
+                            {% block toggle %}
+                            {% endblock %}
+                        </ol>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="right_col" role="main">
+            <div class="row tile_count">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div id="custom_notifications" class="custom-notifications dsp_none">
+    <ul class="list-unstyled notifications clearfix"
+        data-tabbed_notifications="notif-group">
+    </ul>
+    <div class="clearfix"></div>
+    <div id="notif-group" class="tabbed_notifications"></div>
+</div>
+
+{% block specialJS %}
+{% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+/*报警管理*/
+.f_alert_manage .f_badge_color {
+	background-color: #FF7300;
+}
+
+.f_alert_manage .f_bt_bottom {
+    margin-bottom: 2px !important;
+}
+
+.f_alert_manage .f_trigger_font {
+	color: #3257BF;
+	font-size: 14px;
+	text-align: -webkit-left;
+    vertical-align: middle;
+}
+
+.f_alert_manage .f_middle_font td {
+    vertical-align: middle;
+}
+
+.f_alert_manage .f_classification_table_scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.f_alert_manage .f_alert_table_scroll {
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 350px;
+}
+
+.f_alert_manage .f_alert_table_scroll td {
+    vertical-align: middle;
+}
+
+.f_alert_manage .f_hidden_td {
+    display:none;
+}
+
+.f_alert_manage .f_modal_table_fix {
+    table-layout:fixed;
+}
+
+.f_alert_manage .f_modal_table_fix td{
+    word-wrap:break-word;
+}
+
+.f_alert_manage .f_choice_color td {
+    background-color: rgba(132, 132, 129, 0.36);
+}
+
+.f_alert_manage .f_button_right {
+    float: right;
+    position: relative;
+}
+
+.f_alert_manage .f_searchtype input {
+    background-image: url('../images/searchicon.png');
+    background-position: 8px 3px;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 220px;
+    text-align: center;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.f_alert_manage .f_bt_width {
+    width: 80px;
+}
+
+.f_alert_manage .f_send_status {
+    color:#E53333;
+}
+
+
+/*用户管理*/
+.f_user_manage .f_user_table_scroll {
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 350px;
+}
+
+.f_user_manage .f_user_table_scroll td {
+    vertical-align: middle;
+}
+
+.f_user_manage .f_name_font {
+	color: #3257BF;
+	font-size: 14px;
+	text-align: center;
+}
+
+.f_user_manage .f_middle_font td {
+    vertical-align: middle;
+}
+
+.f_user_manage .f_hidden_td {
+    display:none;
+}
+
+.f_user_manage .f_button_right {
+    float: right;
+    position: relative;
+}
+
+.f_user_manage .f_bt_bottom {
+    margin-bottom: 2px !important;
+}
+
+.f_user_manage .f_bt_bottom2 {
+    margin-bottom: 0 !important;
+}
+
+.f_user_manage .f_searchtype input {
+    background-image: url('../images/searchicon.png');
+    background-position: 8px 3px;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 190px;
+    text-align: center;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.f_user_manage .f_bt_width {
+    width: 120px;
+}
+
+.f_user_manage .f_col_width {
+    width: inherit;
+    color: red;
+}
+
+.f_user_manage .f_modal_padding {
+    padding-left: 15%;
+}
+
+.f_user_manage .f_modal_padding2 {
+    padding-left: 5%;
+}
+
+.f_user_manage .f_from_text {
+    text-align: center;
+}
+
+.f_user_manage .f_modal_font_color {
+    color: #31708f;
+}
+
+.popover {
+	word-break: break-all !important;
+}
+
+.popover p {
+	color: #3257BF !important;
+}
+
+.fixed-table-body {
+    overflow: visible;
+}
